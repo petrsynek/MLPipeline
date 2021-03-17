@@ -43,12 +43,13 @@ class Builder:
     def pass_command_line_inputs(self, command_line_inputs: dict) -> None:
         self.command_line_inputs.update(command_line_inputs)
 
-    def build_pipeline(self, bad_yaml=False) -> Pipeline:
+    def build_pipeline(self, bad_yaml=False, verbose=True) -> Pipeline:
         """Definition of pipeline structure comes here...
         Implementing for one pipeline per yaml, could be easily extended.
         """
 
-        print("Building pipeline...")
+        if verbose:
+            print("Building pipeline...")
 
         # check of the base level definition
         # tell me, why is everything marked as a list, even it's obviously dict? WTF?
@@ -58,7 +59,6 @@ class Builder:
                 pipeline_content = list_of_dicts_to_dict(self.parsed_yaml['pipeline'])
             else:
                 pipeline_content = self.parsed_yaml['pipeline']
-            pipeline = Pipeline(pipeline_content['name'])
         else:
             raise PipelineParsingError("Missing pipeline definition.")
 
@@ -69,6 +69,7 @@ class Builder:
         ):
             raise PipelineParsingError("Pipeline missing key attributes.")
 
+        pipeline = Pipeline(pipeline_content['name'])
         # now we have the pipeline lets start to feed it
         task_factory_instance = TaskFactory()
         for component in pipeline_content['components']:

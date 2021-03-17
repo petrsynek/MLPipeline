@@ -75,10 +75,10 @@ class Pipeline:
                 raise PipelineStuckError()
 
         print("Pipeline fake run converged!")
-        print("Flushing the consumables:content "
-              "(for fake run the content is generation path output:inputs->process->output)")
-        for consumable in self.consumables:
-            print(f"{consumable.full_name}:{consumable.content}")
+        # print("Flushing the consumables:content "
+        #       "(for fake run the content is generation path output:inputs->process->output)")
+        # for consumable in self.consumables:
+        #     print(f"{consumable.full_name}:{consumable.content}")
 
         return True
 
@@ -104,14 +104,6 @@ class Pipeline:
                 [consumable.full_name for consumable in self.consumables] +
                 [consumable.name for consumable in self.consumables]
         ):
-            print(f"\nScheduler ticks... \nElapsed time {(datetime.datetime.now() - time_start).seconds} \n"
-                  f"TTR: {list(self.tasks_to_run.keys())} \n"
-                  f"TRU: {list(self.tasks_running.keys())} \n"
-                  f"TCO: {[t.name for t in self.tasks_finished]} \n"
-                  "\n"
-                  f"Input consumables: {[c.name for c in self.consumables]}"
-                  f"\nMeanwhile:"
-                  )
             # for each task waiting in queue
             # you don't want to perform operations on dictionary you are iterating over :D
             task_keys = list(self.tasks_to_run.keys())
@@ -136,14 +128,23 @@ class Pipeline:
                         [consumable.name for consumable in self.consumables]
                     )
                     raise PipelineStuckError()
+
+            print(f"\nScheduler ticks... \nElapsed time {(datetime.datetime.now() - time_start).seconds} \n"
+                  f"TasksToRun: {list(self.tasks_to_run.keys())} \n"
+                  f"TasksRuning: {list(self.tasks_running.keys())} \n"
+                  f"TasksCompleted: {[t.name for t in self.tasks_finished]} \n"
+                  "\n"
+                  f"Input consumables: {[c.name for c in self.consumables]}"
+                  f"\nMeanwhile:"
+                  )
             # tick-tock
             time.sleep(1)
 
         print("Pipeline run converged!")
-        print("Flushing the consumables:content "
-              "(for real run each task type adds single letter to the string "
-              "result is printed in format output:contents)")
-        for consumable in self.consumables:
-            print(f"{consumable.full_name}:{consumable.content}")
+        # print("Flushing the consumables:content "
+        #       "(for real run each task type adds single letter to the string "
+        #       "result is printed in format output:contents)")
+        # for consumable in self.consumables:
+        #     print(f"{consumable.full_name}:{consumable.content}")
 
         return True

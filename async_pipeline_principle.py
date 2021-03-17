@@ -23,7 +23,7 @@ def foo(i):
 class Pipeline:
 
     def __init__(self):
-        """creates several tasks in que at init,, just lazy here..."""
+        """creates several tasks in que at init, I am just being lazy here..."""
         self.tasks_to_run = {f'{i}': foo for i in range(10)}
         self.tasks_running = {}
         self.tasks_complete = {}

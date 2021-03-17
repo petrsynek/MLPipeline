@@ -4,7 +4,14 @@ from MLPipeline.pipeline_builder import Builder
 
 if __name__ == '__main__':
 
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        usage="%(prog)s -i [INPUTS] -f [FILE] ...",
+        description="""
+        App take pipeline flow from .yaml file and inputs from command line.
+        INPUTS should be in format a=1 b=2 (name=value separated by space).
+        Next checks, if the declaration of pipeline in file is correct and all inputs are given.
+        Validate if it can finish by means of fake run and finally execute live and return results."""
+    )
     ap.add_argument("-i",
                     "--inputs",
                     required=True,
@@ -17,7 +24,7 @@ if __name__ == '__main__':
     ap.add_argument("-b",
                     "--bad_yaml",
                     action='store_true',
-                    help="If you plan to use yaml where everything is dict, use this tag.")
+                    help="If you plan to use yaml where everything is list, use this tag.")
     args = vars(ap.parse_args())
 
     cline_inputs = {cline_input.split('=')[0]: cline_input.split('=')[1]
