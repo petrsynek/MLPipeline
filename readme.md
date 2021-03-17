@@ -80,17 +80,6 @@ Will implement the scheduled version... sound more feasible for ML tasks.
 Overseer (pipeline runner in our case) - server which will start specific task services and execute pipeline
 Worker (task in our case) - microservice which will be assigned to execute task
 
-### To do (/nice to have):
-
-- exceptions fired when looking if all keys are present should be more specific
-  - implement in is_subset_of to return missing keys
-  - fix in calls
-- for failed fake run print list of module:missing input
-- clear the pipeline tasks that do not lead to desired output (backtrack from outputs to the inputs)
-- implement task execution canceling, expiration, restart (async tasks running in the loop are accessible trough asyncio.Task.all_tasks())
-- more thorough testing
-- pipeline for integration tests is designed to converge, maybe add complex failing pipeline?
-
 ### Done
 
 + pipeline and methods
@@ -105,9 +94,20 @@ Worker (task in our case) - microservice which will be assigned to execute task
 + implement basic tests
 + implement generic graph tests (integration tests)
 
+### To do (/nice to have):
+
+- exceptions fired when looking if all keys are present should be more specific
+  - implement in is_subset_of to return missing keys
+  - fix in calls
+- for failed fake run print list of module:missing input
+- clear the pipeline tasks that do not lead to desired output (backtrack from outputs to the inputs)
+- implement task execution canceling, expiration, restart (async tasks running in the loop are accessible trough asyncio.Task.all_tasks())
+- more thorough testing
+- pipeline for integration tests is designed to converge, maybe add complex failing pipeline?
+
 ### Assignment Q/A:
 
 - Inputs are defined in one place of assignment as list of strings while at same time being dict of strings (e.g. from command line, different outputs to **specific** output names)
-- Pipeline definition of input yaml in project assignment is crap. Everything is list, even if it is obviously dict. Implementation of code which mends this, cost me seconds of my life which won't come back. I almost dropped this fun project, because you know... who does this?
-- I used 3rd party library which is yaml for yaml parsing, I am not going to reinvent the wheel.
-- Making my own pipeline was fun, but you know that it is bad idea, don't you? There are like a bazillion of project which, if not perfectly fitting, you can fork. 
+- Pipeline definition of input yaml in project assignment is not well-made. Everything is list, even if it is obviously dict. Implementation of code which mends this, cost me seconds of my life which won't come back.
+- I used (against the rules) 3rd party library which is yaml for yaml parsing. I am not going to reinvent the wheel.
+- Making my own pipeline was fun, but you know that it is bad idea, don't you? There are like a bazillion of project which, if not perfectly fitting, you can fork it and modify. 

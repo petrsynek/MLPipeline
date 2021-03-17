@@ -60,7 +60,7 @@ class Pipeline:
         # this async function have access to Pipeline attributes, in real world it would be DB
         # i move task to running
         self.tasks_running.update({i: task})
-        # wait for it
+        # wait for it...
         task(i)
         # move the task to completed
         self.tasks_running.pop(i)

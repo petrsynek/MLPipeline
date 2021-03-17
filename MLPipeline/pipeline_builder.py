@@ -52,8 +52,7 @@ class Builder:
             print("Building pipeline...")
 
         # check of the base level definition
-        # tell me, why is everything marked as a list, even it's obviously dict? WTF?
-        # guys seriously read this https://en.wikipedia.org/wiki/YAML
+        # if you made original yaml and you read this - look here https://en.wikipedia.org/wiki/YAML
         if self.parsed_yaml.get('pipeline'):
             if bad_yaml:
                 pipeline_content = list_of_dicts_to_dict(self.parsed_yaml['pipeline'])
@@ -62,7 +61,6 @@ class Builder:
         else:
             raise PipelineParsingError("Missing pipeline definition.")
 
-        # check the next level of this list-dict ... I wonder what was to point to make it this bad, is it sort of test?
         if not is_subset_of(
                 ['name', 'inputs', 'outputs', 'components'],
                 list(pipeline_content.keys())
@@ -74,8 +72,6 @@ class Builder:
         task_factory_instance = TaskFactory()
         for component in pipeline_content['components']:
 
-            # Definition of pipeline yaml in requirement for this project is so fucking wrong...
-            # I hate who wrote the definition already... if you read this, you are BAD person.
             if len(component) != 1:
                 raise PipelineParsingError(
                     "Component root should be list of dicts of length one with its component.name as a key!"
@@ -83,9 +79,6 @@ class Builder:
             else:
                 c_name = list(component.keys())[0]
 
-            # I searched how to make it ordered dict somehow... to be saved from the pain
-            # but ... there is no way ... if you say - this is list than you meant it
-            # because normal yaml IS ordered dict by definition for fuck sake in first place!
             if bad_yaml:
                 component_dict = list_of_dicts_to_dict(component[c_name])
             else:

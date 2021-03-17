@@ -16,6 +16,7 @@ class OCRModel(AbstractTask):
 
 
 class ExtractionModel(AbstractTask):
+    """Task that adds E"""
 
     def execute(self, inputs):
         self.dummy_executor(inputs, 'E', (1, 5))
