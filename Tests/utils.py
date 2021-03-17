@@ -31,9 +31,14 @@ def create_dummy_pipeline_dict(
         name: str = 'dummy_pipeline'
 ) -> dict:
     """
-    Returns dict which represent dummy pipeline,
-    number of tasks would range from depth to depth*max_components_per_level.
-    no_inputs, no_outputs declare how many inputs/outputs should pipeline have.
+    :param depth: number of iterations during the components are created
+    :param no_inputs: number of inputs for pipeline
+    :param no_outputs:  number of outputs for pipeline
+    :param max_components_per_level: no. of components pre iteration is randomly chosen between 1 and this number
+    :param name: name for the pipeline
+    :return: returns dict which could be inserted into pipeline or dumped as yaml
+
+    Total number of tasks would range from depth to depth*max_components_per_level.
     """
 
     # get available runners

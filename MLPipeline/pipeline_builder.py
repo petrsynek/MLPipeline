@@ -1,19 +1,9 @@
-from typing import List
-
 import yaml
 
 from MLPipeline.consumable import Consumable
 from MLPipeline.pipeline import Pipeline
 from MLPipeline.pipeline_task import TaskFactory
-from MLPipeline.utils import is_subset_of
-
-
-def list_of_dicts_to_dict(my_list: List[dict]) -> dict:
-    """Voodoo magic which fixes weirdly defined yaml in assignment. In principle this should be easy,
-     but if someone can't define dict in yaml, who knows what else will be there so I am double checking. """
-
-    return {list(item.keys())[0]: item[list(item.keys())[0]]
-            for item in my_list if type(item) is dict and len(list(item.keys())) == 1}
+from MLPipeline.utils import is_subset_of, list_of_dicts_to_dict
 
 
 class PipelineParsingError(Exception):
@@ -37,15 +27,23 @@ class Builder:
         self.command_line_inputs = {}
 
     def load_yaml(self, filename: str) -> None:
+        """
+        :param filename: path to pipeline.yaml file
+        """
         with open(filename) as yaml_file:
             self.parsed_yaml = yaml.load(yaml_file, Loader=yaml.FullLoader)
 
     def pass_command_line_inputs(self, command_line_inputs: dict) -> None:
+        """pass command line inputs as dict to pipeline"""
         self.command_line_inputs.update(command_line_inputs)
 
     def build_pipeline(self, bad_yaml=False, verbose=True) -> Pipeline:
-        """Definition of pipeline structure comes here...
+        """
+        Function that returns pipeline when fed with .yaml and inputs
         Implementing for one pipeline per yaml, could be easily extended.
+        :param bad_yaml: turns on/off parsing of all-list-yaml, default=False
+        :param verbose: turns on/off verbosity during build (anoying in tests), default=False
+        :return: returns Pipeline instance
         """
 
         if verbose:

@@ -6,6 +6,7 @@ Project was created based on assignment in _assignment.md_ file. At beginning, I
 
 I imagined pipeline as orchestrator of individual runners (tasks) which perform operations on datasets. As multiple task can run concurrently on the data I have implemented it as asynchronous scheduler. The abstract flow of the pipeline and alternative approaches are described lower.
 
+This is realy like minimal version of the app. possible next steps what should be done are described in _To do (/nice to have)_ section
 ### Description
 
 - App should take pipeline flow from .yaml file and inputs from command line.
@@ -13,6 +14,12 @@ I imagined pipeline as orchestrator of individual runners (tasks) which perform 
 - Execute and return results
 
 ### Guide
+
+Before you start install requirements
+
+```
+pip install -r requirements.txt
+```
 
 Run pipeline principle demonstrator:
 ```
@@ -95,14 +102,13 @@ Worker (task in our case) - microservice which will be assigned to execute task
 + implement generic graph tests (integration tests)
 
 ### To do (/nice to have):
-
+- extend unittests coverage...
 - exceptions fired when looking if all keys are present should be more specific
   - implement in is_subset_of to return missing keys
   - fix in calls
 - for failed fake run print list of module:missing input
 - clear the pipeline tasks that do not lead to desired output (backtrack from outputs to the inputs)
 - implement task execution canceling, expiration, restart (async tasks running in the loop are accessible trough asyncio.Task.all_tasks())
-- more thorough testing
 - pipeline for integration tests is designed to converge, maybe add complex failing pipeline?
 
 ### Assignment Q/A:

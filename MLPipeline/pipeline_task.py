@@ -35,6 +35,7 @@ class AbstractTask:
     def fake_execute(self, input_consumables: List[Consumable]) -> List[Consumable]:
         """performs fake execution of the task"""
         task_result = []
+        # generate output Consumables
         for output in self.output_consumables:
             new_content = f"{[c.full_name for c in input_consumables]}" \
                           f"->" \
@@ -48,6 +49,7 @@ class AbstractTask:
         """This is just dummy executor which i am gonna use in runners to make my work easier"""
         print(f'Starting execution of {self.name}')
         time.sleep(random.randint(*duration))
+        # generate new output names and add new content (eg. key) to concatenated strings of inputs contents
         result_should_be = ''.join([f"{i.content}" for i in inputs]) + f'-{key}'
         for i, consumable_name in enumerate(self.output_consumables):
             generated = Consumable(
@@ -71,10 +73,17 @@ class TaskFactory:
             if issubclass(runner_class, AbstractTask):
                 self.known_runners[runner_name] = runner_class
 
-    def spawn_task(self, name, runner, inputs, outputs):
-        if runner not in self.known_runners:
-            raise UnknownRunnerError(runner)
-        return self.known_runners[runner](name, inputs, outputs)
+    def spawn_task(self, name: str, runner_class: str, inputs: str, outputs: str) -> AbstractTask:
+        """
+        :param name: name for new runner
+        :param runner_class: name of runner class
+        :param inputs: list of input names
+        :param outputs: list of output names
+        :return: instance of runner
+        """
+        if runner_class not in self.known_runners:
+            raise UnknownRunnerError(runner_class)
+        return self.known_runners[runner_class](name, inputs, outputs)
 
 
 class DuplicateConsumableException(Exception):
