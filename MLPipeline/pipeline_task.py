@@ -16,18 +16,18 @@ class AbstractTask:
             output_consumables: List[str] = None,
     ):
 
-        if not input_consumables:
+        if input_consumables is None:
             self.input_consumables = []
         else:
             self.input_consumables = input_consumables
 
-        if not output_consumables:
+        if output_consumables is None:
             self.output_consumables = []
         else:
             self.output_consumables = output_consumables
 
         self.name = name
-        self.generated_outputs = []
+        self.generated_outputs: List[Consumable] = []
 
     def execute(self, input_consumables: List[Consumable]):
         raise Exception("Executing of AbstractTask is not what you should do! Overload the execute method fist!")
