@@ -61,7 +61,7 @@ python integration_test.py
 - **async_pipeline_principle**.**py** - executable which demonstrate a simplified version of async pipeline run
 - **pipeline_cli**.**py** - main executable as defined in requirements
 - **requirements.txt** - requirements for project
-- **.yaml** files - one as defined in the assignment with everything as list 'sigh', other in ordinary human form
+- **.yaml** files - one as defined in the assignment with everything as list, other in ordinary human form
 - **assignment.md** - assigment for the project
 
 ### Flow of execution
