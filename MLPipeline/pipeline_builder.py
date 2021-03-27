@@ -37,11 +37,11 @@ class Builder:
         """pass command line inputs as dict to pipeline"""
         self.command_line_inputs.update(command_line_inputs)
 
-    def build_pipeline(self, bad_yaml=False, verbose=True) -> Pipeline:
+    def build_pipeline(self, flawed_yaml=False, verbose=True) -> Pipeline:
         """
         Function that returns pipeline when fed with .yaml and inputs
         Implementing for one pipeline per yaml, could be easily extended.
-        :param bad_yaml: turns on/off parsing of all-list-yaml, default=False
+        :param flawed_yaml: turns on/off parsing of all-list-yaml, default=False
         :param verbose: turns on/off verbosity during build (anoying in tests), default=False
         :return: returns Pipeline instance
         """
@@ -50,9 +50,8 @@ class Builder:
             print("Building pipeline...")
 
         # check of the base level definition
-        # if you made original yaml and you read this - look here https://en.wikipedia.org/wiki/YAML
         if self.parsed_yaml.get('pipeline'):
-            if bad_yaml:
+            if flawed_yaml:
                 pipeline_content = list_of_dicts_to_dict(self.parsed_yaml['pipeline'])
             else:
                 pipeline_content = self.parsed_yaml['pipeline']
@@ -77,7 +76,7 @@ class Builder:
             else:
                 c_name = list(component.keys())[0]
 
-            if bad_yaml:
+            if flawed_yaml:
                 component_dict = list_of_dicts_to_dict(component[c_name])
             else:
                 component_dict = component[c_name]

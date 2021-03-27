@@ -25,8 +25,7 @@ def fire_and_forget(f):
 
 
 def list_of_dicts_to_dict(my_list: List[dict]) -> dict:
-    """Voodoo magic which fixes weirdly defined yaml in assignment. In principle this should be easy,
-     but if someone can't define dict in yaml, who knows what else will be there so I am double checking. """
+    """Voodoo magic which fixes weirdly defined yaml in assignment. """
 
     return {list(item.keys())[0]: item[list(item.keys())[0]]
             for item in my_list if type(item) is dict and len(list(item.keys())) == 1}

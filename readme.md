@@ -2,7 +2,7 @@
 
 This is simple project which mocks a workflow of machine-learning pipeline. Project is implemented in python 3.9 although I guess anything 3.7+ should be fine.
 
-Project was created based on assignment in _assignment.md_ file. At beginning, I worked with structure of _.yaml_ as defined in assignment, however everything in the original yaml is list for no reason. For purposes of tests and ease of pipeline assembly I switched to slightly more normal implementation later. Still, there are residuals of original implementation - components are still lists, and whole thing is just begging to be OrderedDict. 
+Project was created based on assignment in _assignment.md_ file. At beginning, I worked with structure of _.yaml_ as defined in assignment, however everything in the original yaml is list which is probably flawed. For purposes of tests and ease of pipeline assembly I switched to slightly more normal implementation later. Still, there are residuals of original implementation - components are still lists, and whole thing is just begging to be OrderedDict. 
 
 I imagined pipeline as orchestrator of individual runners (tasks) which perform operations on datasets. As multiple task can run concurrently on the data I have implemented it as asynchronous scheduler. The abstract flow of the pipeline and alternative approaches are described lower.
 
@@ -60,7 +60,7 @@ python integration_test.py
   - **utils** - fake pipeline constructor
 - **async_pipeline_principle**.**py** - executable which demonstrate a simplified version of async pipeline run
 - **pipeline_cli**.**py** - main executable as defined in requirements
-- **requirements.txt** - requirements for project, no, I am not going to implement yaml parser, sorry guys
+- **requirements.txt** - requirements for project
 - **.yaml** files - one as defined in the assignment with everything as list 'sigh', other in ordinary human form
 - **assignment.md** - assigment for the project
 
@@ -114,6 +114,4 @@ Worker (task in our case) - microservice which will be assigned to execute task
 ### Assignment Q/A:
 
 - Inputs are defined in one place of assignment as list of strings while at same time being dict of strings (e.g. from command line, different outputs to **specific** output names)
-- Pipeline definition of input yaml in project assignment is not well-made. Everything is list, even if it is obviously dict. Implementation of code which mends this, cost me seconds of my life which won't come back.
-- I used (against the rules) 3rd party library which is yaml for yaml parsing. I am not going to reinvent the wheel.
-- Making my own pipeline was fun, but you know that it is bad idea, don't you? There are like a bazillion of project which, if not perfectly fitting, you can fork it and modify. 
+- Pipeline definition of input yaml in project assignment is not well-made.

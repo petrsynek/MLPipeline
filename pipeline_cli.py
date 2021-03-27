@@ -22,7 +22,7 @@ if __name__ == '__main__':
                     required=True,
                     help="relative path to the pipeline.yaml file")
     ap.add_argument("-b",
-                    "--bad_yaml",
+                    "--flawed_yaml",
                     action='store_true',
                     help="If you plan to use yaml where everything is list, use this tag.")
     args = vars(ap.parse_args())
@@ -36,5 +36,5 @@ if __name__ == '__main__':
     pipe = site.build_pipeline(args['bad_yaml'])
     fake_result = pipe.fake_run()
     if fake_result:
-        pipe = site.build_pipeline(args['bad_yaml'])
+        pipe = site.build_pipeline(args['flawed_yaml'])
         pipe.run()
